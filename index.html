@@ -36,11 +36,11 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet-measure.js"></script>
         <script src="data/Altena_1.js"></script>
-        <script src="data/NONRess_Suit_New_2.js"></script>
+        <script src="data/NonRes_2_2.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[51.65858175371406,4.7834232251903845],[51.831073297552756,5.148378276487709]]);
+        }).fitBounds([[51.69960461218925,4.7995393544045095],[51.83291843962563,5.164256562078853]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -100,7 +100,7 @@
             abstract.show = function () {
                 this._div.classList.remove("abstract");
                 this._div.classList.add("abstractUncollapsed");
-                this._div.innerHTML = '<br />Suitability<br />Permanent arable land<br />Crop type<br />Code<br />Apples. Planted current season.<br />1095<br />Apples. Planted prior to current season.<br />1096<br />Pears. Planted current season.<br />1097<br />Pears. Planted prior to current season.<br />1098<br />Grassland, permanent<br />265<br />Cherries, sweet<br />2328<br />High-stemmed orchard<br />2628<br />Plums<br />1870<br />Distance to farrm<br />< 200 m<br />200-500 m<br />> 500 m <br /><br /><br /><br /><br />Restriction Layers<br />Buffer zone (m)<br />Water ways and Water body<br />10<br />Wetlands<br />10<br />Forest<br />50<br />Railroads<br />15<br />Roads<br />20-40<br />Protected areas:<br />Nature 2000, Natural protected areas<br />50<br />Building<br />100<br />Non Permanent arable land<br />50<br />';
+                this._div.innerHTML = '<br />Suitability<br /><br />Permanent arable land<br />Crop type<br />Apples. Planted current season.<br />Apples. Planted prior to current season.<br />Pears. Planted current season.<br />Pears. Planted prior to current season.<br />Grassland, permanent<br />Cherries, sweet<br />High-stemmed orchard<br />Plums<br /><br />Restriction Layers (Buffer zone (m))<br /><br />Water ways and Water body (5m)<br />Wetlands (5m)<br />Forest (0m)<br />Railroads(15m)<br />15<br />Roads(20-40m)<br />Protected areas:<br />Nature 2000, Natural protected areas(0m)<br />Building(0m)<br />Non Permanent arable land(0m)<br />';
         };
         abstract.addTo(map);
         var zoomControl = L.control.zoom({
@@ -175,19 +175,19 @@
         });
         bounds_group.addLayer(layer_Altena_1);
         map.addLayer(layer_Altena_1);
-        function pop_NONRess_Suit_New_2(feature, layer) {
+        function pop_NonRes_2_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">value</th>\
-                        <td>' + (feature.properties['value'] !== null ? autolinker.link(String(feature.properties['value']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">area</th>\
+                        <td>' + (feature.properties['area'] !== null ? autolinker.link(String(feature.properties['area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Suitabilit</th>\
-                        <td>' + (feature.properties['Suitabilit'] !== null ? autolinker.link(String(feature.properties['Suitabilit']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">Croptype</th>\
+                        <td>' + (feature.properties['Croptype'] !== null ? autolinker.link(String(feature.properties['Croptype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Area_ha</th>\
-                        <td>' + (feature.properties['Area_ha'] !== null ? autolinker.link(String(feature.properties['Area_ha']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">APV_type</th>\
+                        <td>' + (feature.properties['APV_type'] !== null ? autolinker.link(String(feature.properties['APV_type']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -197,13 +197,73 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_NONRess_Suit_New_2_0(feature) {
-            switch(String(feature.properties['Suitabilit'])) {
-                case 'High':
+        function style_NonRes_2_2_0(feature) {
+            switch(String(feature.properties['Croptype'])) {
+                case 'Apples. Planted current season.':
                     return {
-                pane: 'pane_NONRess_Suit_New_2',
+                pane: 'pane_NonRes_2_2',
                 opacity: 1,
-                color: 'rgba(248,255,31,1.0)',
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,191,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Apples. Planted prior to current season.':
+                    return {
+                pane: 'pane_NonRes_2_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,191,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cherries, sweet':
+                    return {
+                pane: 'pane_NonRes_2_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,23,63,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Grassland, permanent':
+                    return {
+                pane: 'pane_NonRes_2_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(18,225,49,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pears. Planted current season.':
+                    return {
+                pane: 'pane_NonRes_2_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
@@ -214,69 +274,54 @@
                 interactive: true,
             }
                     break;
-                case 'Low':
+                case 'Pears. Planted prior to current season.':
                     return {
-                pane: 'pane_NONRess_Suit_New_2',
+                pane: 'pane_NonRes_2_2',
                 opacity: 1,
-                color: 'rgba(235,186,79,1.0)',
+                color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(235,186,79,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Medium':
-                    return {
-                pane: 'pane_NONRess_Suit_New_2',
-                opacity: 1,
-                color: 'rgba(253,222,111,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(253,227,111,1.0)',
+                fillColor: 'rgba(248,255,31,1.0)',
                 interactive: true,
             }
                     break;
                 default:
                     return {
-                pane: 'pane_NONRess_Suit_New_2',
+                pane: 'pane_NonRes_2_2',
                 opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(234,239,101,1.0)',
+                fillColor: 'rgba(207,224,25,1.0)',
                 interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_NONRess_Suit_New_2');
-        map.getPane('pane_NONRess_Suit_New_2').style.zIndex = 402;
-        map.getPane('pane_NONRess_Suit_New_2').style['mix-blend-mode'] = 'normal';
-        var layer_NONRess_Suit_New_2 = new L.geoJson(json_NONRess_Suit_New_2, {
+        map.createPane('pane_NonRes_2_2');
+        map.getPane('pane_NonRes_2_2').style.zIndex = 402;
+        map.getPane('pane_NonRes_2_2').style['mix-blend-mode'] = 'normal';
+        var layer_NonRes_2_2 = new L.geoJson(json_NonRes_2_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_NONRess_Suit_New_2',
-            layerName: 'layer_NONRess_Suit_New_2',
-            pane: 'pane_NONRess_Suit_New_2',
-            onEachFeature: pop_NONRess_Suit_New_2,
-            style: style_NONRess_Suit_New_2_0,
+            dataVar: 'json_NonRes_2_2',
+            layerName: 'layer_NonRes_2_2',
+            pane: 'pane_NonRes_2_2',
+            onEachFeature: pop_NonRes_2_2,
+            style: style_NonRes_2_2_0,
         });
-        bounds_group.addLayer(layer_NONRess_Suit_New_2);
-        map.addLayer(layer_NONRess_Suit_New_2);
+        bounds_group.addLayer(layer_NonRes_2_2);
+        map.addLayer(layer_NonRes_2_2);
         var overlaysTree = [
-            {label: 'NONRess_Suit_New<br /><table><tr><td style="text-align: center;"><img src="legend/NONRess_Suit_New_2_High0.png" /></td><td>High</td></tr><tr><td style="text-align: center;"><img src="legend/NONRess_Suit_New_2_Low1.png" /></td><td>Low</td></tr><tr><td style="text-align: center;"><img src="legend/NONRess_Suit_New_2_Medium2.png" /></td><td>Medium</td></tr><tr><td style="text-align: center;"><img src="legend/NONRess_Suit_New_2_3.png" /></td><td></td></tr></table>', layer: layer_NONRess_Suit_New_2},
+            {label: 'NonRes_2<br /><table><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_ApplesPlantedcurrentseason0.png" /></td><td>Apples. Planted current season.</td></tr><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_ApplesPlantedpriortocurrentseason1.png" /></td><td>Apples. Planted prior to current season.</td></tr><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_Cherriessweet2.png" /></td><td>Cherries, sweet</td></tr><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_Grasslandpermanent3.png" /></td><td>Grassland, permanent</td></tr><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_PearsPlantedcurrentseason4.png" /></td><td>Pears. Planted current season.</td></tr><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_PearsPlantedpriortocurrentseason5.png" /></td><td>Pears. Planted prior to current season.</td></tr><tr><td style="text-align: center;"><img src="legend/NonRes_2_2_6.png" /></td><td></td></tr></table>', layer: layer_NonRes_2_2},
             {label: '<img src="legend/Altena_1.png" /> Altena', layer: layer_Altena_1},
             {label: "OSM Standard", layer: layer_OSMStandard_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
